@@ -1,4 +1,6 @@
 # Read before you scroll
+Before reviewing my task please look that in task description I had to use only CSS locators which means XPath locators weren't needed
+
 So basically this can successfully run on edge and firefox. Chrome also works, choose any you're comfortable with.
 
 Tests work both on Linux and Windows, test on anything you want
