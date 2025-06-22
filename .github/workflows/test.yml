@@ -1,0 +1,44 @@
+name: Selenium UI Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  selenium-tests:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        browser: [Chrome, Edge, Firefox]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install Chrome
+        run: choco install googlechrome --no-progress
+
+      - name: Install Edge
+        run: choco install microsoft-edge --no-progress
+
+      - name: Install Firefox
+        run: choco install firefox --no-progress
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests on ${{ matrix.browser }}
+        env:
+          BrowserType: ${{ matrix.browser }}
+        run: dotnet test --no-build
