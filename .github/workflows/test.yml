@@ -24,6 +24,9 @@ jobs:
           choco install googlechrome --no-progress --ignore-checksums
           choco install microsoft-edge --no-progress
           choco install firefox --no-progress
+          
+      - name: Install Edge WebDriver
+        run: choco install microsoft-edge-driver --no-progress
 
       - name: Restore dependencies
         run: dotnet restore
