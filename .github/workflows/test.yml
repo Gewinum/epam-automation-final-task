@@ -24,7 +24,7 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Install Chrome
-        run: choco install googlechrome --no-progress
+        run: choco install googlechrome --no-progress --ignore-checksums
 
       - name: Install Edge
         run: choco install microsoft-edge --no-progress
