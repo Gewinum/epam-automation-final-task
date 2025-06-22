@@ -10,10 +10,6 @@ jobs:
   selenium-tests:
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        browser: [Chrome, Edge, Firefox]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -23,14 +19,11 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Install Chrome
-        run: choco install googlechrome --no-progress --ignore-checksums
-
-      - name: Install Edge
-        run: choco install microsoft-edge --no-progress
-
-      - name: Install Firefox
-        run: choco install firefox --no-progress
+      - name: Install browsers
+        run: |
+          choco install googlechrome --no-progress --ignore-checksums
+          choco install microsoft-edge --no-progress
+          choco install firefox --no-progress
 
       - name: Restore dependencies
         run: dotnet restore
@@ -38,7 +31,17 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
-      - name: Run tests on ${{ matrix.browser }}
+      - name: Run tests on Chrome
         env:
-          BrowserType: ${{ matrix.browser }}
+          BrowserType: Chrome
+        run: dotnet test --no-build
+
+      - name: Run tests on Edge
+        env:
+          BrowserType: Edge
+        run: dotnet test --no-build
+
+      - name: Run tests on Firefox
+        env:
+          BrowserType: Firefox
         run: dotnet test --no-build
