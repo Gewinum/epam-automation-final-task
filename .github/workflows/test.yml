@@ -34,14 +34,14 @@ jobs:
       - name: Run tests on Chrome
         env:
           BrowserType: Chrome
-        run: dotnet test --no-build
+        run: dotnet test --no-build --configuration Release
 
       - name: Run tests on Edge
         env:
           BrowserType: Edge
-        run: dotnet test --no-build
+        run: dotnet test --no-build --configuration Release
 
       - name: Run tests on Firefox
         env:
           BrowserType: Firefox
-        run: dotnet test --no-build
+        run: dotnet test --no-build --configuration Release
